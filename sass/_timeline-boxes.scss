@@ -1,0 +1,36 @@
+.timeline-box {
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+    margin: 20px 20px 80px;
+}
+
+.timeline-box:before {
+    content: '';
+    display: block;
+    height: 0;
+    width: 0;
+    position: absolute;
+    bottom: -35px;
+    left: 0;
+    border: 0 solid transparent;
+    //border: 20px solid transparent;
+    //border-bottom-width: 0;
+    border-right-width: 30px;
+    border-top: 35px solid white;
+
+}
+
+.timeline-box:after {
+    content: '>';
+    background: $secondary;
+    height: 100%;
+    width: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 100%;
+}
