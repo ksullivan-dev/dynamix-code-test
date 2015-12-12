@@ -1,0 +1,18 @@
+.header-separator {
+  border-bottom: 4px dashed $white;
+  width: 20%;
+  margin: 40px auto;
+  position: relative;
+  &:before, &:after {
+      content: '';
+      border-bottom: 4px solid #ffffff;
+      width: 100%;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 100%;
+  }
+  &:after {
+      left: -100%;
+  }
+}

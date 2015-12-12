@@ -66,13 +66,14 @@ body {
 
 h3 {
   font-size: 40px;
-  font-weight: normal;
-  color: #244C75;
+  font-weight: 300;
+  color: #FFFFFF;
+  text-align: center;
+  margin-top: 120px;
 }
 
 .header-emphasis {
   font-weight: bold;
-  color: #244C75;
 }
 
 h4 {
@@ -89,8 +90,28 @@ h4 {
   background: -moz-linear-gradient(top, rgba(36, 76, 117, 0.8) 0%, #244c75 100%), url("../images/boardroom.jpg") center top no-repeat;
   background: -webkit-linear-gradient(top, rgba(36, 76, 117, 0.8) 0%, #244c75 100%), url("../images/boardroom.jpg") center top no-repeat;
   background: linear-gradient(to bottom, rgba(36, 76, 117, 0.8) 0%, #244c75 100%), url("../images/boardroom.jpg") center top no-repeat;
-  background-size: cover;
+  background-size: contain;
   min-height: 900px;
+}
+
+/* Header Separator */
+.header-separator {
+  border-bottom: 4px dashed #FFFFFF;
+  width: 20%;
+  margin: 40px auto;
+  position: relative;
+}
+.header-separator:before, .header-separator:after {
+  content: '';
+  border-bottom: 4px solid #ffffff;
+  width: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 100%;
+}
+.header-separator:after {
+  left: -100%;
 }
 
 /* Timeline Boxes */
@@ -100,32 +121,64 @@ h4 {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   position: relative;
   margin: 20px 20px 80px;
+  float: left;
 }
-
-.timeline-box:before {
+.timeline-box:before, .timeline-box:after {
   content: '';
-  display: block;
+  position: absolute;
+}
+.timeline-box:before {
   height: 0;
   width: 0;
-  position: absolute;
   bottom: -35px;
   left: 0;
   border: 0 solid transparent;
   border-right-width: 30px;
   border-top: 35px solid white;
 }
-
 .timeline-box:after {
-  content: '>';
   background: #D29A42;
   height: 100%;
   width: 20px;
-  position: absolute;
   top: 0;
   right: 0;
   text-align: center;
-  vertical-align: middle;
-  line-height: 100%;
+}
+.timeline-box:nth-child(even) {
+  outline: 1px solid red;
+}
+
+.timeline-link {
+  display: block;
+  height: 8px;
+  width: 8px;
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  border-bottom: 2px solid white;
+  border-right: 2px solid white;
+  position: absolute;
+  right: 7px;
+  top: calc(50% - 5px);
+  z-index: 1;
+}
+
+/* Timeline Bar */
+.timeline-bar {
+  width: 90%;
+  margin: 40px auto;
+  height: 4px;
+  background: #FFFFFF;
+  position: relative;
+}
+
+.timeline-event {
+  height: 6px;
+  width: 6px;
+  position: absolute;
+  top: -6px;
+  background: #D29A42;
+  border: 6px solid #FFFFFF;
 }
 
 /*# sourceMappingURL=styles.css.map */

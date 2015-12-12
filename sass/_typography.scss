@@ -7,13 +7,14 @@ body {
 
 h3 {
     font-size: 40px;
-    font-weight: normal;
-    color: $primary;
+    font-weight: 300;
+    color: $white;
+    text-align: center;
+    margin-top: 120px;
 }
 
 .header-emphasis {
     font-weight: bold;
-    color: $primary;
 }
 
 h4 {

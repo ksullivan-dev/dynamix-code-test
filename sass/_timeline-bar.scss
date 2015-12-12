@@ -1,0 +1,16 @@
+.timeline-bar {
+    width: 90%;
+    margin: 40px auto;
+    height: 4px;
+    background: $white;
+    position: relative;
+}
+
+.timeline-event {
+    height: 6px;
+    width: 6px;
+    position: absolute;
+    top: -6px;
+    background: $secondary;
+    border: 6px solid $white;
+}
