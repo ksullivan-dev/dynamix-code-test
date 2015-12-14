@@ -1,47 +1,113 @@
-.timeline-box {
-    background: white;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    position: relative;
-    margin: 20px 20px 80px;
-    float: left;
-    &:before, &:after {
-        content: '';
-        position: absolute;
-    }
-    &:before {
+@keyframes timelineBox {
+    0% {
         height: 0;
+        padding: 0;
         width: 0;
-        bottom: -35px;
-        left: 0;
-        border: 0 solid transparent;
-        border-right-width: 30px;
-        border-top: 35px solid white;
+        visibility: hidden;
+        opacity: 0;
+        min-height: 0;
     }
+}
+
+@keyframes hideText {
+    0% { opacity: 0; }
+    90% { opacity: 0; }
+    100% { opacity: 1;}
+}
+
+.timeline-overlay {
+    transition: all 0.4s linear;
+    height: 100%;
+    background: $secondary;
+    width: 0;
+    max-width: 100%;
+}
+
+.timeline-box {
+    visibility: hidden;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    bottom: 0;
+    box-sizing: border-box;
+    padding: 20px;
+    padding-right: 40px;
+    margin-bottom: 55px;
     &:after {
-        background: $secondary;
-        height: 100%;
-        width: 20px;
-        top: 0;
-        right: 0;
-        text-align: center;
+        bottom: 0;
+        border: 0 solid transparent;
     }
-    &:nth-child(even) {
-        outline: 1px solid red;
+    &.show-box{
+
+        visibility: visible;
+        animation-name: timelineBox;
+        animation-duration: 0.4s;
+        & .inner-timeline-box {
+            animation-name: hideText;
+            animation-duration: 0.5s;
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            height: 0;
+            width: 0;
+            bottom: -35px;
+            left: 0;
+            border: 0 solid transparent;
+            border-right-width: 30px;
+            border-top: 35px solid white;
+        }
+    }
+    &:nth-child(even)  {
+        bottom: auto;
+        top: 55px;
+        &:after {
+            top: -35px;
+            bottom: auto;
+            border-top-width: 0;
+            border-right-width: 30px;
+            border-bottom: 35px solid white;
+        }
+    }
+}
+
+
+
+
+.timeline-event {
+    height: 6px;
+    width: 6px;
+    position: absolute;
+    top: -6px;
+    background: $secondary;
+    border: 6px solid $white;
+    margin-left: -8px;
+    &.show-box {
+        background: $white;
+        border-color: $secondary;
     }
 }
 
 .timeline-link {
-    display: block;
-    height: 8px;
-    width: 8px;
-    -ms-transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    border-bottom: 2px solid white;
-    border-right: 2px solid white;
+    background: $secondary;
+    height: 100%;
+    width: 20px;
     position: absolute;
-    right: 7px;
-    top: calc(50% - 5px);
-    z-index: 1;
+    top: 0;
+    right: 0;
+    text-align: center;
+    a {
+        display: block;
+        height: 8px;
+        width: 8px;
+        -ms-transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        border-bottom: 2px solid white;
+        border-right: 2px solid white;
+        position: absolute;
+        right: 7px;
+        top: calc(50% - 5px);
+        z-index: 1;
+    }
 }
