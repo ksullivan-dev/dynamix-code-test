@@ -3,6 +3,7 @@ body {
     font-size: 14px;
     -webkit-text-size-adjust:100%;
     color: $text;
+    line-height: 1;
 }
 
 h3 {
@@ -10,7 +11,7 @@ h3 {
     font-weight: 300;
     color: $white;
     text-align: center;
-    margin-top: 120px;
+    margin-top: 3.5714285714%; // 40/1120
 }
 
 .header-emphasis {
@@ -20,6 +21,8 @@ h3 {
 h4 {
     font-size: 16px;
     color: $heading;
+    margin-bottom: 12px;
+    line-height: 1.2;
 }
 
 .discovery-container {

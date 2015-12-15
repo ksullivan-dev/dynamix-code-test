@@ -15,6 +15,13 @@
     100% { opacity: 1;}
 }
 
+.timeline-bar {
+    height: 4px;
+    background: $white;
+    position: relative;
+    width: 85%;
+}
+
 .timeline-overlay {
     transition: all 0.4s linear;
     height: 100%;
@@ -30,9 +37,9 @@
     position: absolute;
     bottom: 0;
     box-sizing: border-box;
-    padding: 20px;
-    padding-right: 40px;
-    margin-bottom: 55px;
+    padding: 1.5%;
+    padding-right: calc( 1.5% + 20px );
+    margin-bottom: 40px;
     &:after {
         bottom: 0;
         border: 0 solid transparent;
@@ -51,22 +58,22 @@
             position: absolute;
             height: 0;
             width: 0;
-            bottom: -35px;
+            bottom: -24px;
             left: 0;
             border: 0 solid transparent;
-            border-right-width: 30px;
-            border-top: 35px solid white;
+            border-right-width: 22px;
+            border-top: 24px solid white;
         }
     }
     &:nth-child(even)  {
         bottom: auto;
-        top: 55px;
+        top: 40px;
         &:after {
-            top: -35px;
+            top: -24px;
             bottom: auto;
             border-top-width: 0;
-            border-right-width: 30px;
-            border-bottom: 35px solid white;
+            border-right-width: 22px;
+            border-bottom: 24px solid white;
         }
     }
 }

@@ -28,11 +28,12 @@ $( function(){
                 'width' : parseFloat( topBoxWidth ) * 0.75 + '%'
             });
         }
-
-        maxHeight = maxHeight > $this.outerHeight() ? maxHeight : $this.outerHeight();
+        if( $this.is( ':nth-child(odd)' ) ){
+            maxHeight = maxHeight > $this.outerHeight() ? maxHeight : $this.outerHeight();
+        }
     });
     //$( '.timeline-box' ).css({ 'min-height' : maxHeight });
-    $( '.timeline-bar' ).css({ 'margin' : ( maxHeight + 80) + 'px 0' });
+    $( '.timeline-bar' ).css({ 'margin' : ( maxHeight + 40 ) + 'px 0' });
 
     var timelineAdvance = setInterval( timer, 400);
     var idx = 0;
@@ -48,6 +49,12 @@ $( function(){
         }
     }
 
+    var discoveryStylesStart = $( '.timeline-bar' ).children( '.discovery:first' ).attr( 'style' ).split( ':');
+    var discoveryStylesEnd = $( '.timeline-bar' ).children( '.discovery:last' ).attr( 'style' ).split( ':');
+    $( '.inner-discovery-container' ).css({
+        'width' : parseFloat( discoveryStylesEnd[ 1 ] ) - parseFloat( discoveryStylesStart[ 1 ] ) + '%',
+        'margin-left' : parseFloat( discoveryStylesStart[ 1 ] ) + '%'
+    });
 
 });
 

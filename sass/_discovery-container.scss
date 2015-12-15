@@ -1,0 +1,70 @@
+.discovery-container {
+
+    margin: 7.1428571429% 0 0; // 80/1120
+    padding-bottom: 1.7857142857%; // 22/1120
+    width: 85%;
+
+
+    .inner-discovery-container {
+        position: relative;
+        overflow: visible;
+        height: 30px;
+        width: 40%;
+        border: 4px solid $white;
+        border-bottom: 0;
+        &:before,
+        &:after {
+            content: '';
+            display: block;
+            background: $white;
+            height: 12px;
+            width: 12px;
+            position: absolute;
+            bottom: 0px;
+            left: -8px
+        }
+        &:after {
+            left: auto;
+            right: -8px;
+        }
+    }
+    a {
+        display: block;
+        height: 32px;
+        width: 162px;
+        padding-right: 20px;
+        background: $secondary;
+        position: absolute;
+        top: -17px;
+        left: 15%;
+        text-align: center;
+        line-height: 30px;
+        text-decoration: none;
+        color: $white;
+        &:before,
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+        }
+        &:before {
+            height: 100%;
+            right: 0;
+            top: 0;
+            width: 20px;
+            background: $white;
+        }
+        &:after {
+            width: 6px;
+            height: 6px;
+            -ms-transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            border-bottom: 1px solid $secondary;
+            border-right: 1px solid $secondary;
+            right: 8px;
+            top: calc(50% - 3px);
+            z-index: 1;
+        }
+    }
+}
