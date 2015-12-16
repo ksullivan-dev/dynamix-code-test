@@ -1,4 +1,4 @@
-html {
+html, body {
     height: 100%;
 }
 .main-container {
@@ -8,4 +8,11 @@ html {
     background-size: 100% auto;
     background-color: rgba(36,76,117,1);
     padding: 6.25%; // 80/1280
+    height: 100%;
+    box-sizing: border-box;
+    &:after {
+        content: '';
+        display: block;
+        width: 100%;
+    }
 }
