@@ -34,15 +34,19 @@ $( function(){
     function timer( ){
         var leftPct;
         $( '.event-' + idx ).addClass( 'show-box' );
+        if( $( '.event-' + idx ).hasClass( 'discovery' ) ){
+            $( '.discovery-container' ).addClass( 'show-box' );
+        }
         idx++;
         leftPct = ( idx / ( timelineEventNumber - 1 ) * 100 ) + '%';
         $( '.timeline-overlay' ).css({
             'width': leftPct,
             'height': getMobilePositions( idx )
         });
+
         // End the animation once the last one is run
         if( idx === timelineEventNumber ){
-            $( '.discovery-container' ).addClass( 'show-box' );
+
             clearInterval( timelineAdvance );
         }
     }
