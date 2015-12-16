@@ -1,0 +1,19 @@
+$mobileBkpt: 760;
+
+$mobile: "only screen and (max-width: " + $mobileBkpt + "px)";
+$desktop: "only screen and (min-width: " + ( $mobileBkpt + 1 ) + "px)";
+$phone: "only screen and (max-width: 550px)";
+
+
+#mobile {
+    display: none;
+}
+
+@media #{$mobile}{
+    #desktop {
+        display: none;
+    }
+    #mobile {
+        display: block;
+    }
+}

@@ -1,75 +1,108 @@
-
-var containerClass;
+var timelineEventNumber = $( '.timeline-box' ).length;
 $( function(){
+    var timelineAdvance, idx = 0;
+    $( '.timeline-box' ).each( function( idx ){
+        var $this = $( this ), leftPct, topBoxWidth;
+        idx = $this.index();
 
-
-
-    var timelineEventNumber = $( '.timeline-box' ).length;
-    var maxHeight = -1;
-    $( '.timeline-box' ).each( function(){
-        var $this = $( this );
-        var idx = $this.index();
-
-        var leftPct = idx / ( timelineEventNumber - 1 ) * 100;
-        $this.css({
-            'left'  : leftPct + '%'
-        });
-
-        $this.parent( '.timeline-bar' ).append( '<div class="timeline-event event-' + idx + '" style="left: ' + leftPct + '%;"></div>' );
-
+        // Give each event a numbered class to be used later
         $this.addClass( 'event-' + idx );
 
-        var topBoxWidth = ( 1 / ( Math.round( ( timelineEventNumber - 1) / 2 ) ) * 100 ) - 5 + '%';
-        $this.css({
-            'width' : topBoxWidth
-        });
+        // Math to equally distribute dynamic events along timeline
+        leftPct = idx / ( timelineEventNumber - 1 ) * 100  + '%';
+        $this.css( 'left', leftPct );
 
-        $this.find( '.inner-timeline-box' ).width( $this.width() );
+        // Dynamically add marker on timline for each event
+        $( '.timeline-events' ).append( '<div class="timeline-event event-' + idx + '" /div>' );
+        $( '.timeline-event.event-' + idx ).css( 'left', leftPct );
 
+        // Math to dynamically set width of events
+        topBoxWidth = ( 1 / ( Math.round( ( timelineEventNumber - 1) / 2 ) ) * 100 ) - 5 + '%';
+        $this.css( 'width', topBoxWidth );
+
+        // Find the last event and give it a special width so it will fit on the page
         if( ( idx + 1 ) === timelineEventNumber ){
-            $this.addClass( 'last-event' ).css({
-                'width' : parseFloat( topBoxWidth ) * 0.7 + '%'
-            });
-        }
-        if( $this.is( ':nth-child(odd)' ) ){
-            maxHeight = maxHeight > $this.outerHeight() ? maxHeight : $this.outerHeight();
+            $this.css( 'width', parseFloat( topBoxWidth ) * 0.7 + '%' );
         }
     });
-    //$( '.timeline-box' ).css({ 'min-height' : maxHeight });
-    $( '.timeline-bar' ).css({ 'margin' : ( maxHeight + 40 ) + 'px 0' });
-    $( '.timeline-bar' ).prepend( '<div class="timeline-overlay-mobile" />' )
 
-    var timelineAdvance = setInterval( timer, 600);
-    var idx = 0;
+    runAll();
 
-    function timer(){
+    // Run the animatons
+    timelineAdvance = setInterval( timer, 600);
+    //idx = 0;
+    function timer( ){
+        var leftPct;
         $( '.event-' + idx ).addClass( 'show-box' );
-        //$( '.desktop' ).find( '.event-' + idx ).addClass( 'show-box' );
-        var topPct = ( idx / ( timelineEventNumber - 1 ) * 100 ) + '%';
         idx++;
-        var leftPct = ( idx / ( timelineEventNumber - 1 ) * 100 ) + '%';
-        $( '.timeline-overlay' ).css('width', leftPct );
-        $( '.timeline-overlay-mobile' ).css('height', topPct );
+        leftPct = ( idx / ( timelineEventNumber - 1 ) * 100 ) + '%';
+        $( '.timeline-overlay' ).css({
+            'width': leftPct,
+            'height': getMobilePositions( idx )
+        });
+        // End the animation once the last one is run
         if( idx === timelineEventNumber ){
+            $( '.discovery-container' ).addClass( 'show-box' );
             clearInterval( timelineAdvance );
-            $( '.inner-timeline-box' ).removeAttr( 'style' );
         }
     }
-
-    var discoveryStylesStart = $( '.timeline-bar' ).children( '.discovery:first' ).attr( 'style' ).split( ':');
-    var discoveryStylesEnd = $( '.timeline-bar' ).children( '.discovery:last' ).attr( 'style' ).split( ':');
-    $( '.inner-discovery-container' ).css({
-        'width' : parseFloat( discoveryStylesEnd[ 1 ] ) - parseFloat( discoveryStylesStart[ 1 ] ) + '%',
-        'margin-left' : parseFloat( discoveryStylesStart[ 1 ] ) + '%'
-    });
-
-    majorBreakpoint();
-    containerClass = $( '.main-container' ).attr( 'class' );
-    mobileTimeline();
-
 });
 
+// Functions to run on resize
+$( window ).bind('resize orientationchange', function() {
+    // Remove transition when resizing to help with 'breakpoint flash'
+    $( '.timeline-overlay' ).css( 'transition', 'none' );
+    runAll();
+});
 
+function runAll(){
+    majorBreakpoint();
+    adjustHeight();
+    discoveryStyles();
+    mobileTimeline();
+    makeRoom();
+}
+
+//  Dynamically adjust height of event marker
+function adjustHeight(){
+    $( '.timeline-box' ).each( function(){
+        var $this = $( this ), idx = $this.index();
+        $( '.timeline-event.event-' + idx ).css('top', getMobilePositions( idx ) );
+    });
+}
+
+// Get the vertical offset for the mobile layout so events can be as large or small as necessary
+function getMobilePositions( idx ){
+    if( $( '.main-container' ).hasClass( 'mobile' ) ){
+        var firstBox, lastBox, timelineBarHeight, nextBox;
+        firstBox = $( '.timeline-box:first' ).offset().top;
+        lastBox = $( '.timeline-box:last' ).offset().top;
+        timelineBarHeight = lastBox - firstBox;
+        if( ( idx + 1 ) <= timelineEventNumber ){
+            nextBox = $( '.timeline-box.event-' + idx ).offset().top;
+        } else {
+            nextBox = timelineBarHeight + firstBox;
+        }
+        topPct = ( nextBox - firstBox ) / timelineBarHeight * 100 + '%';
+    } else {
+        topPct = '100%';
+    }
+    return topPct;
+}
+
+// Dynamically positioning the discovery container
+function discoveryStyles(){
+    var discStart = $( '.discovery:first' ).position();
+    var discEnd = $( '.discovery:last' ).position();
+    $( '.inner-discovery-container' ).css({
+        'height' : discEnd.top - discStart.top,
+        'top' : discStart.top,
+        'width' : discEnd.left - discStart.left + 'px',
+        'margin-left' : discStart.left
+    });
+}
+
+// Function that adds/changes a class to main container based on the screensize
 function majorBreakpoint() {
 	if ( $( '#mobile' ).is( ':visible' ) ) {
 		$( '.main-container' ).addClass( 'mobile' ).removeClass( 'desktop' );
@@ -81,25 +114,18 @@ function majorBreakpoint() {
 
 
 
-
+// Resizes the height of timeline and discovery containers
 function mobileTimeline(){
     var firstMobileTimelineEvent = $( '.timeline-box:first' ).offset().top;
     var lastMobileTimelineEvent = $( '.timeline-box:last' ).offset().top;
-    var timelineBarHeight =  $( '.timeline-bar' ).height();
-
-    $( '.mobile' ).find( '.timeline-bar' ).css({
+    $( '.mobile' ).find( '.timeline-bar', '.discovery-container' ).css({
         'height' : lastMobileTimelineEvent - firstMobileTimelineEvent + 'px'
     });
-
-
 }
 
-$( window ).bind('resize orientationchange', function() {
-
-
-
-
-
+// Find the vertical space necessary between heading and events
+// Only looking at events that will be on top row
+function makeRoom(){
     var maxHeight = -1;
     $( '.timeline-box' ).each( function(){
         var $this = $( this );
@@ -108,20 +134,4 @@ $( window ).bind('resize orientationchange', function() {
         }
     });
     $( '.timeline-bar' ).css({ 'margin' : ( maxHeight + 40 ) + 'px 0' });
-
-
-    majorBreakpoint();
-    mobileTimeline();
-
-    var newContainerClass = $( '.main-container' ).attr( 'class' );
-	if ( containerClass != newContainerClass ) {
-        if( newContainerClass.indexOf( 'mobile' ) > -1 ){
-            $( '.timeline-overlay' ).hide();
-        }
-        if( newContainerClass.indexOf( 'desktop' ) > -1 ){
-            $( '.timeline-overlay' ).show();
-            $( '.desktop' ).find( '.timeline-bar' ).css('height' , '4px');
-        }
-	}
-	containerClass = newContainerClass;
-});
+}

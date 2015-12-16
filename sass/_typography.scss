@@ -16,6 +16,14 @@ h3 {
 
 .header-emphasis {
     font-weight: bold;
+    white-space: nowrap;
+    @media #{$phone} {
+        white-space: normal;
+        &:before {
+            display: block;
+            content: '';
+        }
+    }
 }
 
 h4 {

@@ -3,6 +3,10 @@
   width: 20%;
   margin: 2.6785714286% auto; // 30/1120
   position: relative;
+  @media #{$mobile} {
+      margin: 8% auto 10%;
+      width: 40%;
+  }
   &:before, &:after {
       content: '';
       border-bottom: 4px solid #ffffff;
@@ -11,8 +15,14 @@
       position: absolute;
       top: 0;
       left: 100%;
+      @media #{$mobile} {
+          width: 50%;
+      }
   }
   &:after {
       left: -100%;
+      @media #{$mobile} {
+          left: -50%;
+      }
   }
 }
