@@ -56,7 +56,6 @@
         bottom: 0 !important;
     }
     &:after {
-        bottom: 0;
         content: '';
         position: absolute;
         height: 0;
@@ -131,14 +130,24 @@
 }
 
 .timeline-link {
-    background: $secondary;
     height: 100%;
-    width: 20px;
+    width: 100%;
     position: absolute;
+    display: block;
     top: 0;
-    right: 0;
-    text-align: center;
-    a {
+    left: 0;
+    &:after {
+        content: '';
+        background: $secondary;
+        height: 100%;
+        width: 20px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        text-align: center;
+    }
+    &:before {
+        content: '';
         display: block;
         height: 8px;
         width: 8px;

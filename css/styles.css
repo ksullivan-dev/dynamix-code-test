@@ -245,7 +245,6 @@ html, body {
   }
 }
 .timeline-box:after {
-  bottom: 0;
   content: '';
   position: absolute;
   height: 0;
@@ -326,6 +325,15 @@ html, body {
 }
 
 .timeline-link {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+}
+.timeline-link:after {
+  content: '';
   background: #D29A42;
   height: 100%;
   width: 20px;
@@ -334,7 +342,8 @@ html, body {
   right: 0;
   text-align: center;
 }
-.timeline-link a {
+.timeline-link:before {
+  content: '';
   display: block;
   height: 8px;
   width: 8px;
@@ -425,11 +434,12 @@ html, body {
   background: #D29A42;
   position: absolute;
   top: -17px;
-  left: 15%;
+  left: 50%;
   text-align: center;
   line-height: 30px;
   text-decoration: none;
   color: #FFFFFF;
+  margin-left: -81px;
 }
 @media only screen and (max-width: 760px) {
   .inner-discovery-container a {
@@ -438,6 +448,7 @@ html, body {
     left: -17px;
     top: 10%;
     padding: 20px 0 0 0;
+    margin: 0;
   }
 }
 .inner-discovery-container a:before, .inner-discovery-container a:after {
