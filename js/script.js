@@ -46,7 +46,7 @@ $( function(){
 
         // End the animation once the last one is run
         if( idx === timelineEventNumber ){
-
+            $( '.main-container' ).addClass( 'animation-complete' );
             clearInterval( timelineAdvance );
         }
     }
@@ -54,8 +54,10 @@ $( function(){
 
 // Functions to run on resize
 $( window ).bind('resize orientationchange', function() {
-    // Remove transition when resizing to help with 'breakpoint flash'
-    $( '.timeline-overlay' ).css( 'transition', 'none' );
+    // Remove transition when resizing after the animation has completed to help with 'breakpoint flash'
+    if( $( '.main-container' ).hasClass( 'animation-complete' ) ){
+        $( '.timeline-overlay' ).css( 'transition', 'none' );
+    }
     runAll();
 });
 
