@@ -12,7 +12,7 @@ $( function(){
         leftPct = idx / ( timelineEventNumber - 1 ) * 100  + '%';
         $this.css( 'left', leftPct );
 
-        // Dynamically add marker on timline for each event
+        // Dynamically add marker on timeline for each event
         $( '.timeline-events' ).append( '<div class="timeline-event event-' + idx + '" /div>' );
         $( '.timeline-event.event-' + idx ).css( 'left', leftPct );
 
